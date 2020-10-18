@@ -13,15 +13,37 @@ npm install --save react-use-form-hook
 ## Usage
 
 ```jsx
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
-import MyComponent from 'react-use-form-hook'
-import 'react-use-form-hook/dist/index.css'
+import useForm from 'react-use-form-hook';
 
-class Example extends Component {
-  render() {
-    return <MyComponent />
-  }
+function YourComponent() {
+  const {
+    values,
+    errors,
+    isValid,
+    handleChange,
+    handleSubmit,
+    handleBlur,
+  } = useForm(yourStateObj, validationsFn, submitFn);
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        name="firstName"
+        value={values.firstName}
+        onBlur={handleBlur}
+      />
+      { errors.firstName && <span>{errors.firstName}</span>}
+      <input
+        name="lastName"
+        value={values.lastName}
+        onBlur={handleBlur}
+      />
+      { errors.lastName && <span>{errors.lastName}</span>}
+      <button type="submit" disabled={isValid}></button>
+    </form>
+  )
 }
 ```
 

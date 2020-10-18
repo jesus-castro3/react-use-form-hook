@@ -5,10 +5,14 @@ const useFormHook = (state, validations, submitForm) => {
   const [errors, setErrors] = useState({})
   const [isValid, setIsValid] = useState(false)
 
+  const isEmpty = (obj) => {
+    return (Object.keys(obj).length === 0) ? true : false
+  }
+
   const handleValidations = (name, newValues) => {
     const validationErrors = validations(name, newValues, errors)
     setErrors(validationErrors)
-    setIsValid(!Object.keys(validationErrors).length)
+    setIsValid(isEmpty(validationErrors))
   }
 
   const handleBlur = (e) => {
